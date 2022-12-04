@@ -1,0 +1,78 @@
+
+<div class="container mt-5 text-center" #scrollBottom>
+  <div class="row mt-5">
+    
+    <div class="col-md-6 offset-md-3">
+      <div>
+        <h1>S-ARIMA Model</h1>
+      </div>
+      <div *ngIf="displayAlert == true" class="alert alert-primary d-flex align-items-center">
+        <strong>
+          {{
+            viewM1? this.m1 : ""
+          }}
+          {{
+            viewM2? this.m2 : ""
+          }}
+          {{
+            viewM3? this.m3 : ""
+          }}
+          {{
+            viewM4? this.m4 : ""
+          }}
+        </strong>
+        <div class="spinner-border ms-auto" aria-hidden="true" role="status"> 
+        </div>
+      </div>
+      <div *ngIf="viewParams == true">
+        <div class="params" [@listAnimation]="this.AIC['param'].length">
+          <div
+            *ngFor="let param of this.AIC['param']; let ps of this.AIC['param_seasonal']; let rs of this.AIC['result']; let i = index"
+            class="" aria-current="true">
+            <p class="mb-1">ARIMA{{this.AIC['param'][i]}}x{{this.AIC['param_seasonal'][i]}} - AIC:
+              {{this.AIC['result'][i]}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="viewCharts == true"class="row mt-4 align-items-center">
+    <div class="col-md-6 mb-3">
+      <div>
+        <h1 class="display-1 text-success">Accuracy:
+          {{
+            accuracyCount > this.errorMetrics[1]? this.errorMetrics[1] : accuracyCount
+            
+          }}%
+          
+        </h1>
+        <h1 class="display-5 text-danger">RMSE : 
+          {{
+            rmseCount > this.errorMetrics[0]? this.errorMetrics[0] : rmseCount
+          }} 
+        </h1>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div   id="divChart2">
+        <canvas id="myChart2"></canvas>
+      </div>
+    </div>
+    
+  </div>
+  <div *ngIf="viewCharts == true" class="row mt-5 mb-5">
+    <div class="col  mb-3">
+      <div  id="divChart1">
+        <canvas id="myChart1"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="viewCharts == true" class="row mt-5 mb-5">
+    <div class="col">
+      <div id="divChart3">
+        <canvas id="myChart3"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
